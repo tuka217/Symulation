@@ -1,3 +1,66 @@
 Base path: C:/Program Files/Unity/Editor/Data
-Pipe name: \\.\pipe\UnityShaderCompiler-64bit-1-9152
+Pipe name: \\.\pipe\UnityShaderCompiler-64bit-1-6776
 Cmd: getPlatforms
+Cmd: preprocess
+  insize=764 outsize=259 ok=1
+Cmd: compileSnippet
+  api=4 type=0 insize=804 outsize=1006 kw= pd= ok=1
+Cmd: compileSnippet
+  api=4 type=1 insize=804 outsize=721 kw= pd= ok=1
+Cmd: preprocess
+  insize=533 outsize=164 ok=1
+Cmd: compileSnippet
+  api=4 type=0 insize=665 outsize=908 kw= pd= ok=1
+Cmd: compileSnippet
+  api=4 type=1 insize=665 outsize=583 kw= pd= ok=1
+Cmd: preprocess
+  insize=614 outsize=165 ok=1
+Cmd: compileSnippet
+  error: 2 plat 4 at (22): incorrect number of arguments to numeric-type constructor\nCompiling Vertex program
+  api=4 type=0 insize=746 outsize=0 kw= pd= ok=0
+Cmd: preprocess
+  insize=614 outsize=165 ok=1
+Cmd: compileSnippet
+  error: 2 plat 4 at (22): incorrect number of arguments to numeric-type constructor\nCompiling Vertex program
+  api=4 type=0 insize=746 outsize=0 kw= pd= ok=0
+Cmd: preprocess
+  insize=613 outsize=165 ok=1
+Cmd: compileSnippet
+  error: 2 plat 4 at (22): incorrect number of arguments to numeric-type constructor\nCompiling Vertex program
+  api=4 type=0 insize=745 outsize=0 kw= pd= ok=0
+Cmd: preprocess
+  insize=613 outsize=165 ok=1
+Cmd: compileSnippet
+  error: 2 plat 4 at (22): incorrect number of arguments to numeric-type constructor\nCompiling Vertex program
+  api=4 type=0 insize=745 outsize=0 kw= pd= ok=0
+Cmd: preprocess
+  insize=614 outsize=165 ok=1
+Cmd: compileSnippet
+  error: 2 plat 4 at (22): incorrect number of arguments to numeric-type constructor\nCompiling Vertex program
+  api=4 type=0 insize=746 outsize=0 kw= pd= ok=0
+Cmd: preprocess
+  insize=659 outsize=165 ok=1
+Cmd: compileSnippet
+  error: 2 plat 4 at (23): incorrect number of arguments to numeric-type constructor\nCompiling Vertex program
+  api=4 type=0 insize=791 outsize=0 kw= pd= ok=0
+Cmd: preprocess
+  insize=823 outsize=329 ok=1
+Cmd: compileSnippet
+  error: 2 plat 4 at (28): incorrect number of arguments to numeric-type constructor\nCompiling Vertex program
+  api=4 type=0 insize=791 outsize=0 kw= pd= ok=0
+Cmd: preprocess
+  insize=888 outsize=329 ok=1
+Cmd: compileSnippet
+  error: 2 plat 4 at (24): undeclared identifier '_CirclesX'\nCompiling Vertex program
+  api=4 type=0 insize=856 outsize=0 kw= pd= ok=0
+Cmd: preprocess
+  insize=918 outsize=329 ok=1
+Cmd: compileSnippet
+  error: 2 plat 4 at (25): undeclared identifier '_CirclesX'\nCompiling Vertex program
+  api=4 type=0 insize=886 outsize=0 kw= pd= ok=0
+Cmd: preprocess
+  insize=1147 outsize=335 ok=1
+Cmd: compileSnippet
+  api=4 type=0 insize=1109 outsize=908 kw= pd= ok=1
+Cmd: compileSnippet
+  api=4 type=1 insize=1109 outsize=1355 kw= pd= ok=1
