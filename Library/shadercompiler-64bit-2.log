@@ -1,0 +1,17 @@
+Base path: C:/Program Files/Unity/Editor/Data
+Pipe name: \\.\pipe\UnityShaderCompiler-64bit-2-11200
+Cmd: getPlatforms
+Cmd: compileSnippet
+  error: 2 plat 4 at (16): 'vert': function return value missing semantics\nCompiling Vertex program
+  api=4 type=0 insize=1112 outsize=0 kw= pd= ok=0
+Cmd: compileSnippet
+  error: 2 plat 4 at (23): 'frag': input parameter 'i' missing semantics\nCompiling Fragment program
+  api=4 type=1 insize=1112 outsize=0 kw= pd= ok=0
+Cmd: compileSnippet
+  error: 2 plat 8 at (23): 'frag': input parameter 'i' missing semantics\nCompiling Fragment program
+Platform defines: UNITY_NO_SCREENSPACE_SHADOWS UNITY_NO_LINEAR_COLORSPACE
+  api=8 type=1 insize=1112 outsize=0 kw= pd=UNITY_NO_SCREENSPACE_SHADOWS UNITY_NO_LINEAR_COLORSPACE ok=0
+Unhandled exception: Readfile from pipe failed. GLE=Potok został zakończony.
+
+
+Quitting shader compiler process

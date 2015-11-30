@@ -1,66 +1,105 @@
 Base path: C:/Program Files/Unity/Editor/Data
-Pipe name: \\.\pipe\UnityShaderCompiler-64bit-1-6776
+Pipe name: \\.\pipe\UnityShaderCompiler-64bit-1-10772
 Cmd: getPlatforms
 Cmd: preprocess
-  insize=764 outsize=259 ok=1
+  insize=981 outsize=165 ok=1
 Cmd: compileSnippet
-  api=4 type=0 insize=804 outsize=1006 kw= pd= ok=1
+  error: 2 plat 4 at (16): 'vert': function return value missing semantics\nCompiling Vertex program
+  api=4 type=0 insize=1112 outsize=0 kw= pd= ok=0
 Cmd: compileSnippet
-  api=4 type=1 insize=804 outsize=721 kw= pd= ok=1
+  error: 2 plat 1 at (16): 'vert': function return value missing semantics\nCompiling Vertex program
+  api=1 type=0 insize=1112 outsize=0 kw= pd= ok=0
+Cmd: compileSnippet
+  error: 2 plat 8 at (16): 'vert': function return value missing semantics\nCompiling Vertex program
+Platform defines: UNITY_NO_SCREENSPACE_SHADOWS UNITY_NO_LINEAR_COLORSPACE
+  api=8 type=0 insize=1112 outsize=0 kw= pd=UNITY_NO_SCREENSPACE_SHADOWS UNITY_NO_LINEAR_COLORSPACE ok=0
+Cmd: compileSnippet
+  error: 2 plat 1 at (23): 'frag': input parameter 'i' missing semantics\nCompiling Fragment program
+  api=1 type=1 insize=1112 outsize=0 kw= pd= ok=0
 Cmd: preprocess
-  insize=533 outsize=164 ok=1
+  insize=981 outsize=166 ok=1
 Cmd: compileSnippet
-  api=4 type=0 insize=665 outsize=908 kw= pd= ok=1
+  api=4 type=0 insize=1112 outsize=1323 kw= pd= ok=1
 Cmd: compileSnippet
-  api=4 type=1 insize=665 outsize=583 kw= pd= ok=1
+  api=4 type=1 insize=1112 outsize=1030 kw= pd= ok=1
 Cmd: preprocess
-  insize=614 outsize=165 ok=1
+  insize=981 outsize=166 ok=1
 Cmd: compileSnippet
-  error: 2 plat 4 at (22): incorrect number of arguments to numeric-type constructor\nCompiling Vertex program
-  api=4 type=0 insize=746 outsize=0 kw= pd= ok=0
+  api=4 type=0 insize=1112 outsize=1323 kw= pd= ok=1
+Cmd: compileSnippet
+  api=4 type=1 insize=1112 outsize=1030 kw= pd= ok=1
 Cmd: preprocess
-  insize=614 outsize=165 ok=1
-Cmd: compileSnippet
-  error: 2 plat 4 at (22): incorrect number of arguments to numeric-type constructor\nCompiling Vertex program
-  api=4 type=0 insize=746 outsize=0 kw= pd= ok=0
+  insize=981 outsize=166 ok=1
 Cmd: preprocess
-  insize=613 outsize=165 ok=1
-Cmd: compileSnippet
-  error: 2 plat 4 at (22): incorrect number of arguments to numeric-type constructor\nCompiling Vertex program
-  api=4 type=0 insize=745 outsize=0 kw= pd= ok=0
+  insize=981 outsize=166 ok=1
 Cmd: preprocess
-  insize=613 outsize=165 ok=1
+  insize=981 outsize=165 ok=1
 Cmd: compileSnippet
-  error: 2 plat 4 at (22): incorrect number of arguments to numeric-type constructor\nCompiling Vertex program
-  api=4 type=0 insize=745 outsize=0 kw= pd= ok=0
+  api=4 type=0 insize=1112 outsize=1323 kw= pd= ok=1
+Cmd: compileSnippet
+  api=4 type=1 insize=1112 outsize=1030 kw= pd= ok=1
 Cmd: preprocess
-  insize=614 outsize=165 ok=1
+  insize=981 outsize=165 ok=1
 Cmd: compileSnippet
-  error: 2 plat 4 at (22): incorrect number of arguments to numeric-type constructor\nCompiling Vertex program
-  api=4 type=0 insize=746 outsize=0 kw= pd= ok=0
+  api=4 type=0 insize=1112 outsize=1323 kw= pd= ok=1
+Cmd: compileSnippet
+  api=4 type=1 insize=1112 outsize=1030 kw= pd= ok=1
 Cmd: preprocess
-  insize=659 outsize=165 ok=1
+  insize=981 outsize=166 ok=1
 Cmd: compileSnippet
-  error: 2 plat 4 at (23): incorrect number of arguments to numeric-type constructor\nCompiling Vertex program
-  api=4 type=0 insize=791 outsize=0 kw= pd= ok=0
+  api=4 type=0 insize=1112 outsize=1323 kw= pd= ok=1
+Cmd: compileSnippet
+  api=4 type=1 insize=1112 outsize=1030 kw= pd= ok=1
 Cmd: preprocess
-  insize=823 outsize=329 ok=1
+  insize=981 outsize=166 ok=1
 Cmd: compileSnippet
-  error: 2 plat 4 at (28): incorrect number of arguments to numeric-type constructor\nCompiling Vertex program
-  api=4 type=0 insize=791 outsize=0 kw= pd= ok=0
+  api=4 type=0 insize=1112 outsize=1323 kw= pd= ok=1
+Cmd: compileSnippet
+  api=4 type=1 insize=1112 outsize=1030 kw= pd= ok=1
 Cmd: preprocess
-  insize=888 outsize=329 ok=1
+  insize=982 outsize=166 ok=1
 Cmd: compileSnippet
-  error: 2 plat 4 at (24): undeclared identifier '_CirclesX'\nCompiling Vertex program
-  api=4 type=0 insize=856 outsize=0 kw= pd= ok=0
+  api=4 type=0 insize=1113 outsize=1323 kw= pd= ok=1
+Cmd: compileSnippet
+  api=4 type=1 insize=1113 outsize=1030 kw= pd= ok=1
 Cmd: preprocess
-  insize=918 outsize=329 ok=1
+  insize=982 outsize=165 ok=1
 Cmd: compileSnippet
-  error: 2 plat 4 at (25): undeclared identifier '_CirclesX'\nCompiling Vertex program
-  api=4 type=0 insize=886 outsize=0 kw= pd= ok=0
+  api=4 type=0 insize=1113 outsize=1323 kw= pd= ok=1
+Cmd: compileSnippet
+  api=4 type=1 insize=1113 outsize=1030 kw= pd= ok=1
 Cmd: preprocess
-  insize=1147 outsize=335 ok=1
+  insize=1066 outsize=284 ok=1
 Cmd: compileSnippet
-  api=4 type=0 insize=1109 outsize=908 kw= pd= ok=1
+  error: 2 plat 4 at (32): undeclared identifier '_Color1'\nCompiling Vertex program
+  api=4 type=0 insize=1079 outsize=0 kw= pd= ok=0
+Cmd: preprocess
+  insize=1092 outsize=284 ok=1
 Cmd: compileSnippet
-  api=4 type=1 insize=1109 outsize=1355 kw= pd= ok=1
+  error: 2 plat 4 at (15): unrecognized identifier 'fload4'\nCompiling Vertex program
+  api=4 type=0 insize=1105 outsize=0 kw= pd= ok=0
+Cmd: preprocess
+  insize=1095 outsize=284 ok=1
+Cmd: compileSnippet
+  error: 2 plat 4 at (34): undeclared identifier '_Color1'\nCompiling Vertex program
+  api=4 type=0 insize=1108 outsize=0 kw= pd= ok=0
+Cmd: preprocess
+  insize=1124 outsize=284 ok=1
+Cmd: compileSnippet
+  api=4 type=0 insize=1137 outsize=1323 kw= pd= ok=1
+Cmd: compileSnippet
+  api=4 type=1 insize=1137 outsize=989 kw= pd= ok=1
+Cmd: preprocess
+  insize=1120 outsize=280 ok=1
+Cmd: preprocess
+  insize=1181 outsize=280 ok=1
+Cmd: compileSnippet
+  error: 2 plat 4 at (20): syntax error: unexpected token 'struct'\nCompiling Vertex program
+  api=4 type=0 insize=1198 outsize=0 kw= pd= ok=0
+Cmd: preprocess
+  insize=1183 outsize=279 ok=1
+Cmd: compileSnippet
+  error: 2 plat 4 at (20): syntax error: unexpected token 'struct'\nCompiling Vertex program
+  api=4 type=0 insize=1200 outsize=0 kw= pd= ok=0
+Cmd: preprocess
+  insize=37 outsize=34 ok=1

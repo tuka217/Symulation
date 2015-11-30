@@ -45,7 +45,6 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\ChangeColor.cs" />
      <Compile Include="Assets\ChangeColors.cs" />
      <None Include="Assets\colorShader.shader" />
  <Reference Include="UnityEngine.UI">
