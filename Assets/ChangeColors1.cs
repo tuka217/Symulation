@@ -2,15 +2,17 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class ChangeColors : MonoBehaviour {
+public class ChangeColors1 : MonoBehaviour {
 
     private float cachedY;
     private float minXValue;
     private float maxXValue;
     private float currentHeat;
     private float quarterTmp;
+    private Color[] colors;
+    private float[] heats;
     public int maxHeat;
-    public Image visualHeat;
+    public 
     float G;
     float B;
     float R;
@@ -22,11 +24,11 @@ public class ChangeColors : MonoBehaviour {
         maxXValue = 840;
         minXValue = 0;
         currentHeat = 100;
-        visualHeat.color = new Color(1.0f, 0, 0);
         quarterTmp = maxHeat / 4;
         R = 1.0f;
         G = 0;
         B = 0;
+        heats = new float[1000];
 	}
 	
     private float CurrentHeat
@@ -38,29 +40,56 @@ public class ChangeColors : MonoBehaviour {
             }
     }
 	// Update is called once per frame
-	void Update () {
+    void Update()
+    {
         currentHeat -= 0.01f;
+        heats[0] = currentHeat;
+        for (int i = 1; i < 1000; i++)
+        {
+            if (currentHeat - 0.1f >= 0)
+            {
+                heats[i] = currentHeat - (1 * i);
+            }
+            else
+            {
+                heats[i] = 0;
+            }
+        }
         //HandleHeat();
         if (currentHeat <= 0)
         {
             currentHeat = 0;
         }
-        changeHeatToRGBColor();
-	}
+        changeHeatToRGBColor(heats);
+    }
 
-    private void changeHeatToRGBColor()
+    private void changeHeatToRGBColor(float[] heats)
     {
-        if(currentHeat <= quarterTmp){
-            visualHeat.color = upG(currentHeat);
-        }
-        else if(currentHeat > quarterTmp && currentHeat <= quarterTmp*2 ){
-            visualHeat.color = downB(currentHeat);
-        }
-        else if(currentHeat > quarterTmp*2 && currentHeat <= quarterTmp*3){
-            visualHeat.color = upR(currentHeat);
-        }
-        else if(currentHeat > quarterTmp*3 && currentHeat <= maxHeat){
-            visualHeat.color = downG(currentHeat);
+        Renderer renderer = gameObject.GetComponent<Renderer>();
+        for (int i = 0; i < 1000; i++)
+        {
+            string name = "_Colors" + i;
+            Color color = new Color(0, 0, 0);
+            if (heats[i] <= quarterTmp)
+            {
+                color = upG(currentHeat);
+                renderer.material.SetColor(name, color);
+            }
+            else if (heats[i] > quarterTmp && heats[i] <= quarterTmp * 2)
+            {
+                color = downB(currentHeat);
+                renderer.material.SetColor(name, color);
+            }
+            else if (heats[i] > quarterTmp * 2 && heats[i] <= quarterTmp * 3)
+            {
+                color = upR(currentHeat);
+                renderer.material.SetColor(name, color);
+            }
+            else if (heats[i] > quarterTmp * 3 && heats[i] <= maxHeat)
+            {
+                color = downG(currentHeat);
+                renderer.material.SetColor(name, color);
+            }
         }
     }
 
@@ -97,30 +126,7 @@ public class ChangeColors : MonoBehaviour {
         step = Mathf.Round(step * 100f) / 100f;
         G =  1-(step -3);
         G = Mathf.Round(G * 100f) / 100f;
-        Debug.Log("G " + G);
-        Debug.Log("current " + currentHeat);
         return new Color(R, G, B);
     }
- 
-    private void HandleHeat()
-    {
-       // float currentXValue = MapValues(currentHeat, 0, maxHeat, minXValue, maxXValue);
-        if (currentHeat > maxHeat)
-        {
-            visualHeat.color = new Color32((byte)MapValues(currentHeat, maxHeat / 2, maxHeat, 255, 0), 255, 0, 255);
-            
-        }
-        else //less than 50%
-        {
-            visualHeat.color = new Color32(255, (byte)MapValues(currentHeat, 0, maxHeat / 2, 0, 255), 0, 255);
-           
-        }
-    }
-    private float MapValues(float x, float inMin, float inMax, float outMin, float outMax)
-    {
-        return (x - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
 
-       // float quarterMaxXValue = maxXValue / 4;
-        
-    }
 }

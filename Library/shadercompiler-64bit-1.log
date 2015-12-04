@@ -1,21 +1,3 @@
 Base path: C:/Program Files/Unity/Editor/Data
-Pipe name: \\.\pipe\UnityShaderCompiler-64bit-1-6248
+Pipe name: \\.\pipe\UnityShaderCompiler-64bit-1-7760
 Cmd: getPlatforms
-Cmd: preprocess
-  insize=1321 outsize=381 ok=1
-Cmd: compileSnippet
-  error: 2 plat 4 at (45): syntax error: unexpected end of file\nCompiling Vertex program
-  api=4 type=0 insize=1239 outsize=0 kw= pd= ok=0
-Cmd: preprocess
-  insize=1328 outsize=381 ok=1
-Cmd: compileSnippet
-  api=4 type=0 insize=1246 outsize=1006 kw= pd= ok=1
-Cmd: compileSnippet
-  error: 2 plat 4 at (41): 'frag': Not all control paths return a value\nCompiling Fragment program
-  api=4 type=1 insize=1246 outsize=0 kw= pd= ok=0
-Cmd: preprocess
-  insize=1370 outsize=380 ok=1
-Cmd: compileSnippet
-  api=4 type=0 insize=1288 outsize=1006 kw= pd= ok=1
-Cmd: compileSnippet
-  api=4 type=1 insize=1288 outsize=989 kw= pd= ok=1
