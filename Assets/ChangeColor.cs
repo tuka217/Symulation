@@ -8,7 +8,8 @@ public class ChangeColor : MonoBehaviour {
     Color[] colors = new Color[width];
     List<Color> colorsOfTheRainbow = new List<Color>();
     int[] positions = new int[width];
-    System.Random random = new System.Random();
+    System.Random random = new System.Random(); // tylko dla testów
+    private float time = 0; // tylko dla testów
 
 	// Use this for initialization
 	void Start ()
@@ -32,8 +33,19 @@ public class ChangeColor : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
+	    time += 0.001f;
 
+        for (int i = 0; i < colors.Length; ++i)
+        {
+            GetComponent<Renderer>().material.SetColor("_Colors" + i.ToString(), TemperatureToRgbColor(CalculateTemperature(positions[i], time)));
+        }
 	}
+
+    private double CalculateTemperature(int x, float time)
+    {
+        //return Math.Sin((Math.PI*x)/2.0f)*Math.Exp(-(58.0f*Math.Pow(Math.PI, 2)*time)/4.0f);
+        return x*time+time*200; // tylko dla testów
+    }
 
     public static List<Color> GetRainbowColors(int colorCount)
     {
@@ -85,5 +97,11 @@ public class ChangeColor : MonoBehaviour {
     public static Color GetRgb(float r, float g, float b)
     {
         return new Color(r,g,b,1.0f);
+    }
+
+    public Color TemperatureToRgbColor(double temp)
+    {
+        int indexOfColor = (int)temp; // tylko dla testów
+        return colorsOfTheRainbow[width - indexOfColor - 200]; // tylko dla testów
     }
 }
