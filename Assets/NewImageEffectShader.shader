@@ -3,8 +3,9 @@
 	Properties
 	{
 		[PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
-		_DefaultColor ("DefaultColor", Color) = (1.0, 1.0, 1.0, 1.0)
-		_X ("X", Float) = 0
+		_DefaultColor ("Default color", Color) = (1.0, 1.0, 1.0, 1.0)
+		_MaterialPosition ("Material position", Float) = 0
+		_TextureOffset ("Texture offset", Float) = 0
 		_Size ("Size", Float) = 0
 	}
 	SubShader {
@@ -16,7 +17,8 @@
             #include "UnityCG.cginc"
 
 			uniform float4 _DefaultColor;
-			uniform float _X;
+			uniform float _MaterialPosition;
+			uniform float _TextureOffset;
 			uniform float _Size;
 			uniform float4 _Colors[1000];
 			uniform float _PositionsX[1000];
@@ -39,8 +41,8 @@
             }
 
             fixed4 frag(fragmentInput input) : SV_Target {
-				if(abs(input.position.x - _X - _PositionsX[input.position.x]) < _Size) {
-					return _Colors[input.position.x];
+				if(abs(input.position.x + _MaterialPosition - _PositionsX[input.position.x]) < _Size) {
+					return _Colors[input.position.x + _TextureOffset]*_DefaultColor;
 				} else {
 					return _DefaultColor;
 				}

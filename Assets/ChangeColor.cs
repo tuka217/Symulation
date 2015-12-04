@@ -7,7 +7,7 @@ public class ChangeColor : MonoBehaviour {
     static int width = 500;
     Color[] colors = new Color[width];
     List<Color> colorsOfTheRainbow = new List<Color>();
-    float[] positions = new float[width];
+    int[] positions = new int[width];
     System.Random random = new System.Random();
 
 	// Use this for initialization
@@ -30,7 +30,8 @@ public class ChangeColor : MonoBehaviour {
 	}
 
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
 
 	}
 
