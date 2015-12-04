@@ -102,6 +102,15 @@ public class ChangeColor : MonoBehaviour {
     public Color TemperatureToRgbColor(double temp)
     {
         int indexOfColor = (int)temp; // tylko dla testów
-        return colorsOfTheRainbow[width - indexOfColor - 200]; // tylko dla testów
+        indexOfColor = width - indexOfColor - 200; // tylko dla testów
+        if (indexOfColor > width-1)
+        {
+            indexOfColor = width;
+        }
+        if (indexOfColor < 0)
+        {
+            indexOfColor = 0;
+        }
+        return colorsOfTheRainbow[indexOfColor];
     }
 }
