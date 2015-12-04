@@ -47,7 +47,7 @@
   <ItemGroup>
      <Compile Include="Assets\ChangeColor.cs" />
      <Compile Include="Assets\ChangeColors.cs" />
-     <None Include="Assets\colorShader.shader" />
+     <None Include="Assets\ColorCycle.shader" />
      <None Include="Assets\NewImageEffectShader.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

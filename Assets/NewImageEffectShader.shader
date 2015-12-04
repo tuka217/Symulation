@@ -40,7 +40,7 @@
 
             fixed4 frag(fragmentInput input) : SV_Target {
 				if(abs(input.position.x - _X - _PositionsX[input.position.x]) < _Size) {
-					return _Colors[input.position.x]*_DefaultColor;
+					return _Colors[input.position.x];
 				} else {
 					return _DefaultColor;
 				}

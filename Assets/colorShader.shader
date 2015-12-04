@@ -1,4 +1,0 @@
-﻿Shader "Hidden/colorShader"
-{
-	
-}

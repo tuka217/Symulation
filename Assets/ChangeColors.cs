@@ -102,7 +102,7 @@ public class ChangeColors : MonoBehaviour {
         return new Color(R, G, B);
     }
  
-  /*  private void HandleHeat()
+    private void HandleHeat()
     {
        // float currentXValue = MapValues(currentHeat, 0, maxHeat, minXValue, maxXValue);
         if (currentHeat > maxHeat)
@@ -122,5 +122,5 @@ public class ChangeColors : MonoBehaviour {
 
        // float quarterMaxXValue = maxXValue / 4;
         
-    }*/
+    }
 }
