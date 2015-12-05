@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.UI;
 
 public class Symulation : MonoBehaviour
 {
@@ -14,8 +12,9 @@ public class Symulation : MonoBehaviour
     private float Ta;
     private float Tb;
     private float quarterTmp;
-    private Color[] colors;
-    private int[] positions;
+    private static int size = 1000;
+    Color[] colors = new Color[size];
+    int[] positions = new int[size];
 
     // Use this for initialization
     void Start()
@@ -27,62 +26,65 @@ public class Symulation : MonoBehaviour
         float alfa = 0.8f;
         quarterTmp = Tb / 4;
         r = (alfa * deltaT) / deltaX;
-        actual = new float[1000];
-        last = new float[1000];
-        matrixA = new float[1000, 1000];
-        initLast(ref last, 1000);
-        initMatrixA(ref matrixA, 1000,r);
-        colors = new Color[1000];
-        initColors(ref colors);
-        positions = new int[1000];
+        actual = new float[size];
+        last = new float[size];
+        matrixA = new float[size, size];
+        initLast();
+        initMatrixA();
+        initColors();
 
+        for (int i = 0; i < size; ++i)
+        {
+            positions[i] = i;
+            GetComponent<Renderer>().material.SetFloat("_PositionsX" + i.ToString(), positions[i]);
+        }
     }
 
-    private void calculateActual(ref float[] actual, ref float[] last, ref float[,] matrixA)
+    private void calculateActual()
     {
-        for (int i = 0; i < 1000; i++)
+        for (int i = 0; i < size; i++)
         {
             actual[i] = 0;
         }
-        for (int i = 0; i < 1000; i++)
+        for (int i = 0; i < size; i++)
         {
-            for (int j = 0; j < 1000; j++)
+            for (int j = 0; j < size; j++)
             {
                 actual[i] += matrixA[i, j] * last[j];
             }
         }
-        for (int i = 0; i < 1000; i++)
+        for (int i = 0; i < size; i++)
         {
             last[i] = actual[i];
         }
 
     }
 
-    private void initLast(ref float[] last, int count)
+    private void initLast()
     {
         last[0] = Ta;
-        last[count -1] = Tb;
-        for (int i = 1; i < count - 1; i++)
+        last[size - 1] = Tb;
+        for (int i = 1; i < size - 1; i++)
         {
             last[i] = 0;
         }
     }
 
-    private void initMatrixA(ref float[,] matrixA, int count, float r)
+    private void initMatrixA()
     {
         matrixA[0, 0] = 1;
-        matrixA[count - 1, count - 1] = 1;
-        for (int i = 1; i < count; i++)
+        matrixA[size - 1, size - 1] = 1;
+        for (int i = 1; i < size; i++)
         {
             matrixA[0, i] = 0;
         }
-        for (int i = count - 2; i <= 0; i--)
+        for (int i = size - 2; i <= 0; i--)
         {
-            matrixA[count - 1, i] = 0;
+            matrixA[size - 1, i] = 0;
         }
-        for (int i = 1; i < count - 1; i++)
+        for (int i = 1; i < size - 1; i++)
         {
-            for (int j = 0; j < count; j++)
+            for (int j = 0; j < size; j++)
             {
                 if (j == i)
                 {
@@ -96,98 +98,97 @@ public class Symulation : MonoBehaviour
         }
     }
 
-    private void initColors(ref Color[] colors)
+    private void initColors()
     {
-        for (int i = 0; i < 1000; i++)
+        for (int i = 0; i < colors.Length; ++i)
         {
-            colors[i] = new Color(0, 0, 1);
+            colors[i] = new Color(0.0f, 0.0f, 1.0f, 1.0f);
             if (i == 999)
             {
-                colors[i] = new Color(1, 0, 0);
+                colors[i] = new Color(1.0f, 0.0f, 0.0f, 1.0f);
             }
+            GetComponent<Renderer>().material.SetColor("_Colors" + i.ToString(), colors[i]);
         }
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        calculateActual( ref actual, ref last, ref matrixA);
-        changeHeatToRGBColor(ref actual, ref colors, 1000);
+        calculateActual();
+        changeHeatToRGBColor();
     }
 
-    private void changeHeatToRGBColor(ref float[] heats, ref Color[] colors, int count)
+    private void changeHeatToRGBColor()
     {
        // Renderer renderer = gameObject.GetComponent<Renderer>();
        // Debug.Log(renderer.material.name);
-        for (int i = 0; i < count; i++)
+        for (int i = 0; i < size; i++)
         {
-            positions[i] = i;
-            GetComponent<Renderer>().material.SetFloat("_PositionsX" + i.ToString(), positions[i]);
-            if (heats[i] <= quarterTmp)
+            if (actual[i] <= quarterTmp)
             {
-                upG(heats[i],ref colors[i]);
-                GetComponent<Renderer>().material.SetColor("_Colors" + i.ToString(), colors[i]);
+                upG(actual[i], i);
             }
-            else if (heats[i] > quarterTmp && heats[i] <= quarterTmp * 2)
+            else if (actual[i] > quarterTmp && actual[i] <= quarterTmp * 2)
             {
-                downB(heats[i], ref colors[i]);
-                GetComponent<Renderer>().material.SetColor("_Colors" + i.ToString(), colors[i]);
+                downB(actual[i], i);
             }
-            else if (heats[i] > quarterTmp * 2 && heats[i] <= quarterTmp * 3)
+            else if (actual[i] > quarterTmp * 2 && actual[i] <= quarterTmp * 3)
             {
-                upR(heats[i], ref colors[i]);
-                GetComponent<Renderer>().material.SetColor("_Colors" + i.ToString(), colors[i]);
+                upR(actual[i], i);
             }
-            else if (heats[i] > quarterTmp * 3 && heats[i] <= Tb)
+            else if (actual[i] > quarterTmp * 3 && actual[i] <= Tb)
             {
-                downG(heats[i], ref colors[i]);
-                GetComponent<Renderer>().material.SetColor("_Colors" + i.ToString(), colors[i]);
+                downG(actual[i], i);
             }
+
+            //Debug.Log(actual[i]);
+            GetComponent<Renderer>().material.SetColor("_Colors" + i.ToString(), colors[i]);
         }
-        Debug.Log(colors[998]);
+        //Debug.Log(colors[998]);
     }
 
-    private void upG(float currentHeat, ref Color color)
+    private void upG(float currentHeat, int index)
     {
         float step = (currentHeat * 0.01f) / (this.quarterTmp / 100);
         step = Mathf.Round(step * 100f) / 100f;
         float G = step;
         G = Mathf.Round(G * 100f) / 100f;
-        float B = color.b;
-        float R = color.r;
-        color =  new Color(R, G, B);
+        float B = colors[index].b;
+        float R = colors[index].r;
+        colors[index] = new Color(R, G, B, 1.0f);
+        //Debug.Log(colors[index]);
     }
 
-    private void downB(float currentHeat, ref Color color)
+    private void downB(float currentHeat, int index)
     {
         float step = ((currentHeat * 0.01f) / (this.quarterTmp / 100)) - 1;
         step = Mathf.Round(step * 100f) / 100f;
         float B = 1 - step;
         B = Mathf.Round(B * 100f) / 100f;
-        float G = color.g;
-        float R = color.r;
-        color = new Color(R,G, B);
+        float G = colors[index].g;
+        float R = colors[index].r;
+        colors[index] = new Color(R, G, B, 1.0f);
     }
 
-    private void upR(float currentHeat, ref Color color)
+    private void upR(float currentHeat, int index)
     {
         float step = (currentHeat * 0.01f) / (this.quarterTmp / 100);
         step = Mathf.Round(step * 100f) / 100f;
         float R = step - 2;
         R = Mathf.Round(R * 100f) / 100f;
-        float G = color.g;
-        float B = color.b;
-        color = new Color(R, G, B);
+        float G = colors[index].g;
+        float B = colors[index].b;
+        colors[index] = new Color(R, G, B, 1.0f);
     }
 
-    private void downG(float currentHeat, ref Color color)
+    private void downG(float currentHeat, int index)
     {
         float step = ((currentHeat * 0.01f) / (this.quarterTmp / 100));
         step = Mathf.Round(step * 100f) / 100f;
         float G = 1 - (step - 3);
         G = Mathf.Round(G * 100f) / 100f;
-        float B = color.b;
-        float R = color.r;
-        color = new Color(R, G, B);
+        float B = colors[index].b;
+        float R = colors[index].r;
+        colors[index] = new Color(R, G, B, 1.0f);
     }
 }
