@@ -6,7 +6,7 @@
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
 	<RootNamespace></RootNamespace>
-	<ProjectGuid>{EE08A33A-A355-63D2-C430-9266D8330A4A}</ProjectGuid>
+	<ProjectGuid>{E08AE3F4-F8E9-7CA0-9DC7-36F01E710316}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<AssemblyName>Assembly-CSharp</AssemblyName>
@@ -48,7 +48,7 @@
      <Compile Include="Assets\ChangeColor.cs" />
      <Compile Include="Assets\ChangeColors.cs" />
      <Compile Include="Assets\ChangeColors1.cs" />
-     <None Include="Assets\ColorCycle.shader" />
+     <Compile Include="Assets\Symulation.cs" />
      <None Include="Assets\NewImageEffectShader.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
