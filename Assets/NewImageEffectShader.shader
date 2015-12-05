@@ -4,9 +4,10 @@
 	{
 		[PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
 		_DefaultColor ("Default color", Color) = (1.0, 1.0, 1.0, 1.0)
-		_MaterialPosition ("Material position", Float) = 0
-		_TextureOffset ("Texture offset", Float) = 0
-		_Size ("Size", Float) = 0
+		_MaterialPosition ("Material position", Float) = -0.5
+		_TextureOffset ("Texture offset", Float) = -1.22
+		_Size ("Size", Float) = 0.5
+		_Scale ("Scale", Float) = 1000.0
 	}
 	SubShader {
         Pass {
@@ -20,6 +21,7 @@
 			uniform float _MaterialPosition;
 			uniform float _TextureOffset;
 			uniform float _Size;
+			uniform float _Scale;
 			uniform float4 _Colors[1000];
 			uniform float _PositionsX[1000];
 
@@ -42,7 +44,7 @@
 
             fixed4 frag(fragmentInput input) : SV_Target {
 				if(abs(input.texcoord0.x + _MaterialPosition - _PositionsX[input.texcoord0.x]) < _Size) {
-					return _Colors[input.texcoord0.x*1000 + _TextureOffset];
+					return _Colors[input.texcoord0.x*_Scale + _TextureOffset];
 				} else {
 					return _DefaultColor;
 				}
