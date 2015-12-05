@@ -14,7 +14,7 @@ public class Symulation : MonoBehaviour
     private float quarterTmp;
     private static int size = 1000;
     Color[] colors = new Color[size];
-    int[] positions = new int[size];
+    float[] positions = new float[size];
 
     // Use this for initialization
     void Start()

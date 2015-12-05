@@ -41,8 +41,8 @@
             }
 
             fixed4 frag(fragmentInput input) : SV_Target {
-				if(abs(input.position.x + _MaterialPosition - _PositionsX[input.position.x]) < _Size) {
-					return _Colors[input.position.x + _TextureOffset]*_DefaultColor;
+				if(abs(input.texcoord0.x + _MaterialPosition - _PositionsX[input.texcoord0.x]) < _Size) {
+					return _Colors[input.texcoord0.x*1000 + _TextureOffset];
 				} else {
 					return _DefaultColor;
 				}
