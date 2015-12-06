@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Symulation : MonoBehaviour
 {
@@ -11,30 +12,30 @@ public class Symulation : MonoBehaviour
     private float[] actual;
     private float[] last;
     private float[,] matrixA;
-    private float Ta;
-    private float Tb;
-    private float mainTemp;
+    public float Ta = -30;
+    public float Tb = 1250;
+    public float mainTemp = 20;
+    public int tempRange = 1300;
     private static int size = 100;
     float[] positions = new float[size];
     List<Color> colorsOfTheRainbow = new List<Color>();
     float mintemp = 0;
+    public bool start = false;
+    private bool started;
 
     // Use this for initialization
     void Start()
     {
-        Ta = -30;
-        Tb = 1250;
         float deltaT = 0.2f;
         float deltaX = 1f;
         float alfa = 0.8f;
-        mainTemp = 20;
         r = (alfa * deltaT) / deltaX;
         actual = new float[size];
         last = new float[size];
         matrixA = new float[size, size];
         initLast();
         initMatrixA();
-        colorsOfTheRainbow = GetRainbowColors(1300);
+        colorsOfTheRainbow = GetRainbowColors(tempRange);
         if (Ta < Tb)
         {
             mintemp = Ta;
@@ -115,8 +116,27 @@ public class Symulation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        calculateActual();
-        changeHeatToRGBColor();
+
+        Text text = GameObject.Find("Text").GetComponent<Text>();
+        text.text = Tb.ToString();
+
+        Text text1 = GameObject.Find("Text (1)").GetComponent<Text>();
+        text1.text = mainTemp.ToString();
+
+        Text text2 = GameObject.Find("Text (2)").GetComponent<Text>();
+        text2.text = Ta.ToString();
+
+        if (start && !started)
+        {
+            Start();
+            started = true;
+        }
+
+        if (started)
+        {
+            calculateActual();
+            changeHeatToRGBColor();
+        }
     }
 
     private void changeHeatToRGBColor()
@@ -178,5 +198,40 @@ public class Symulation : MonoBehaviour
     public static Color GetRgb(float r, float g, float b)
     {
         return new Color(r, g, b, 1.0f);
+    }
+
+    public void changeTa (float newTa)
+    {
+        Ta = newTa;
+        if (started)
+        {
+            initLast();
+            initMatrixA();
+        }
+    }
+
+    public void changeTb(float newTb)
+    {
+        Tb = newTb;
+        if (started)
+        {
+            initLast();
+            initMatrixA();
+        }
+    }
+
+    public void changeMainTemp(float newMainTemp)
+    {
+        mainTemp = newMainTemp;
+        if (started)
+        {
+            initLast();
+            initMatrixA();
+        }
+    }
+
+    public void setStart(bool newStart)
+    {
+        start = newStart;
     }
 }
