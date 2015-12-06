@@ -12,7 +12,7 @@ public class Symulation1 : MonoBehaviour
     private float Ta;
     private float Tb;
     private float quarterTmp;
-    private static int size = 1000;
+    private static int size = 200;
     Color[] colors = new Color[size];
     float[] positions = new float[size];
 
@@ -47,7 +47,7 @@ public class Symulation1 : MonoBehaviour
         initMatrixA();
         calculateBoundaries();
         changeInitialHeatToColor(Ta, 0);
-        changeInitialHeatToColor(Tb, 999);
+        changeInitialHeatToColor(Tb, size-1);
         changeInitialHeatToColor(0, 1);
         initColors();
 
