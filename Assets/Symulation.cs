@@ -116,7 +116,6 @@ public class Symulation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         Text text = GameObject.Find("Text").GetComponent<Text>();
         text.text = Tb.ToString();
 
@@ -233,5 +232,10 @@ public class Symulation : MonoBehaviour
     public void setStart(bool newStart)
     {
         start = newStart;
+    }
+
+    public void quit()
+    {
+        Application.Quit();
     }
 }
