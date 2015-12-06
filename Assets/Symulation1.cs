@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Symulation : MonoBehaviour
+public class Symulation1 : MonoBehaviour
 {
     private float deltaT;
     private float deltaX;
@@ -16,21 +16,39 @@ public class Symulation : MonoBehaviour
     Color[] colors = new Color[size];
     float[] positions = new float[size];
 
+    private float boundaryRed;
+    private float boundaryBlue;
+    private float boundaryGreen;
+    private float maxTmp;
+    private float minTmp;
+
     // Use this for initialization
     void Start()
     {
-        Ta = 40;
-        Tb = 200;
+        Ta = -400;
+        Tb = 2000;
+        maxTmp = Ta;
+        minTmp = Tb;
+        if (Tb > Ta)
+        {
+            maxTmp = Tb;
+            minTmp = Ta;
+        }
+        
         float deltaT = 0.2f;
         float deltaX = 1f;
-        float alfa = 0.8f;
+        float alfa =2f;
         quarterTmp = Tb / 4;
-        r = (alfa * deltaT) / deltaX;
+        r = (alfa * deltaT) / deltaX * deltaX;
         actual = new float[size];
         last = new float[size];
         matrixA = new float[size, size];
         initLast();
         initMatrixA();
+        calculateBoundaries();
+        changeInitialHeatToColor(Ta, 0);
+        changeInitialHeatToColor(Tb, 999);
+        changeInitialHeatToColor(0, 1);
         initColors();
 
         for (int i = 0; i < size; ++i)
@@ -40,6 +58,28 @@ public class Symulation : MonoBehaviour
         }
     }
 
+    private void calculateBoundaries()
+    {
+        float scale = 0;
+        scale = Tb;
+        if (Ta < 0 || Tb < 0)
+        {
+            scale = Mathf.Abs(Tb) + Mathf.Abs(Ta);
+            quarterTmp = scale / 4;
+            boundaryGreen = (Ta < Tb)? Ta + quarterTmp: Tb + quarterTmp;
+            boundaryBlue = boundaryGreen + quarterTmp;
+            boundaryRed = boundaryBlue + quarterTmp;
+        }
+        if (Ta > Tb)
+        {
+            scale = Ta;
+
+        }
+        quarterTmp = scale / 4;
+        boundaryGreen = quarterTmp;
+        boundaryBlue = boundaryGreen + quarterTmp;
+        boundaryRed = boundaryBlue + quarterTmp;
+    }
     private void calculateActual()
     {
         for (int i = 0; i < size; i++)
@@ -100,15 +140,36 @@ public class Symulation : MonoBehaviour
 
     private void initColors()
     {
-        for (int i = 0; i < colors.Length; ++i)
+        for (int i = 2; i < colors.Length -1; ++i)
         {
-            colors[i] = new Color(0.0f, 0.0f, 1.0f, 1.0f);
-            if (i == 999)
-            {
-                colors[i] = new Color(1.0f, 0.0f, 0.0f, 1.0f);
-            }
+            colors[i] = colors[1];
             GetComponent<Renderer>().material.SetColor("_Colors" + i.ToString(), colors[i]);
         }
+    }
+    private void changeInitialHeatToColor( float initialHeat, int index)
+    {
+        if (initialHeat <= boundaryGreen)
+        {
+            colors[index] = new Color(0, 0, 1);
+            upG(initialHeat, index);
+        }
+        else if (initialHeat > boundaryGreen && initialHeat <= boundaryBlue)
+        {
+            colors[index] = new Color(0, 1, 1);
+            downB(initialHeat, index);
+        }
+        else if (initialHeat > boundaryBlue && initialHeat <= boundaryRed)
+        {
+            colors[index] = new Color(0, 1, 0);
+            upR(initialHeat, index);
+        }
+        else if (initialHeat > boundaryRed && initialHeat <= maxTmp)
+        {
+            colors[index] = new Color(1, 1, 0);
+            downG(initialHeat, index);
+        }
+
+        GetComponent<Renderer>().material.SetColor("_Colors" + index.ToString(), colors[index]);
     }
 
     // Update is called once per frame
@@ -116,51 +177,53 @@ public class Symulation : MonoBehaviour
     {
         calculateActual();
         changeHeatToRGBColor();
+        passColorToSahder();
     }
 
     private void changeHeatToRGBColor()
     {
         for (int i = 0; i < size; i++)
         {
-            if (actual[i] <= quarterTmp)
+            if (actual[i] <= boundaryGreen)
             {
                 upG(actual[i], i);
             }
-            else if (actual[i] > quarterTmp && actual[i] <= quarterTmp * 2)
+            else if (actual[i] > boundaryGreen && actual[i] <= boundaryBlue)
             {
                 downB(actual[i], i);
             }
-            else if (actual[i] > quarterTmp * 2 && actual[i] <= quarterTmp * 3)
+            else if (actual[i] > boundaryBlue && actual[i] <= boundaryRed)
             {
                 upR(actual[i], i);
             }
-            else if (actual[i] > quarterTmp * 3 && actual[i] <= Tb)
+            else if (actual[i] > boundaryRed && actual[i] <= maxTmp)
             {
                 downG(actual[i], i);
             }
-
+        }
+    }
+    private void passColorToSahder()
+    {
+        for( int i = 0; i < size; i ++)
+        {
             GetComponent<Renderer>().material.SetColor("_Colors" + i.ToString(), colors[i]);
         }
     }
 
     private void upG(float currentHeat, int index)
     {
-        float step = (currentHeat * 0.01f) / (this.quarterTmp / 100);
-        step = Mathf.Round(step * 100f) / 100f;
-        float G = step;
-        G = Mathf.Round(G * 100f) / 100f;
+        float mapedHeat = Mathf.Abs(minTmp - currentHeat);
+        float G = mapedHeat / quarterTmp;
         float B = colors[index].b;
         float R = colors[index].r;
         colors[index] = new Color(R, G, B, 1.0f);
-        //Debug.Log(colors[index]);
+
     }
 
     private void downB(float currentHeat, int index)
     {
-        float step = ((currentHeat * 0.01f) / (this.quarterTmp / 100)) - 1;
-        step = Mathf.Round(step * 100f) / 100f;
-        float B = 1 - step;
-        B = Mathf.Round(B * 100f) / 100f;
+        float mapedHeat = Mathf.Abs(boundaryGreen - currentHeat);
+        float B = mapedHeat / quarterTmp;
         float G = colors[index].g;
         float R = colors[index].r;
         colors[index] = new Color(R, G, B, 1.0f);
@@ -168,10 +231,8 @@ public class Symulation : MonoBehaviour
 
     private void upR(float currentHeat, int index)
     {
-        float step = (currentHeat * 0.01f) / (this.quarterTmp / 100);
-        step = Mathf.Round(step * 100f) / 100f;
-        float R = step - 2;
-        R = Mathf.Round(R * 100f) / 100f;
+        float mapedHeat = Mathf.Abs(boundaryBlue - currentHeat);
+        float R = mapedHeat / quarterTmp;
         float G = colors[index].g;
         float B = colors[index].b;
         colors[index] = new Color(R, G, B, 1.0f);
@@ -179,10 +240,8 @@ public class Symulation : MonoBehaviour
 
     private void downG(float currentHeat, int index)
     {
-        float step = ((currentHeat * 0.01f) / (this.quarterTmp / 100));
-        step = Mathf.Round(step * 100f) / 100f;
-        float G = 1 - (step - 3);
-        G = Mathf.Round(G * 100f) / 100f;
+        float mapedHeat = Mathf.Abs(boundaryRed - currentHeat);
+        float G = mapedHeat / quarterTmp;
         float B = colors[index].b;
         float R = colors[index].r;
         colors[index] = new Color(R, G, B, 1.0f);
