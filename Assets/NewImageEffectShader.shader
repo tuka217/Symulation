@@ -7,7 +7,7 @@
 		_MaterialPosition ("Material position", Float) = -0.5
 		_TextureOffset ("Texture offset", Float) = -1.22
 		_Size ("Size", Float) = 0.5
-		_Scale ("Scale", Float) = 200.0
+		_Scale ("Scale", Float) = 100.0
 	}
 	SubShader {
         Pass {
@@ -22,8 +22,8 @@
 			uniform float _TextureOffset;
 			uniform float _Size;
 			uniform float _Scale;
-			uniform float4 _Colors[200];
-			uniform float _PositionsX[200];
+			uniform float4 _Colors[100];
+			uniform float _PositionsX[100];
 
             struct vertexInput {
                 float4 vertex : POSITION;

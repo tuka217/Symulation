@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class Symulation : MonoBehaviour
 {
@@ -11,30 +13,42 @@ public class Symulation : MonoBehaviour
     private float[,] matrixA;
     private float Ta;
     private float Tb;
-    private float quarterTmp;
-    private static int size = 1000;
-    Color[] colors = new Color[size];
+    private float mainTemp;
+    private static int size = 100;
     float[] positions = new float[size];
+    List<Color> colorsOfTheRainbow = new List<Color>();
+    float mintemp = 0;
 
     // Use this for initialization
     void Start()
     {
-        Ta = 40;
-        Tb = 200;
+        Ta = -30;
+        Tb = 1250;
         float deltaT = 0.2f;
         float deltaX = 1f;
         float alfa = 0.8f;
-        quarterTmp = Tb / 4;
+        mainTemp = 20;
         r = (alfa * deltaT) / deltaX;
         actual = new float[size];
         last = new float[size];
         matrixA = new float[size, size];
         initLast();
         initMatrixA();
-        initColors();
+        colorsOfTheRainbow = GetRainbowColors(1300);
+        if (Ta < Tb)
+        {
+            mintemp = Ta;
+        }
+        else
+        {
+            mintemp = Tb;
+        }
 
         for (int i = 0; i < size; ++i)
         {
+            actual[i] = 0;
+            GetComponent<Renderer>().material.SetColor("_Colors" + i.ToString(), colorsOfTheRainbow[(int)(actual[i] + Math.Abs(mintemp))]);
+
             positions[i] = i;
             GetComponent<Renderer>().material.SetFloat("_PositionsX" + i.ToString(), positions[i]);
         }
@@ -66,7 +80,7 @@ public class Symulation : MonoBehaviour
         last[size - 1] = Tb;
         for (int i = 1; i < size - 1; i++)
         {
-            last[i] = 0;
+            last[i] = mainTemp;
         }
     }
 
@@ -98,19 +112,6 @@ public class Symulation : MonoBehaviour
         }
     }
 
-    private void initColors()
-    {
-        for (int i = 0; i < colors.Length; ++i)
-        {
-            colors[i] = new Color(0.0f, 0.0f, 1.0f, 1.0f);
-            if (i == 999)
-            {
-                colors[i] = new Color(1.0f, 0.0f, 0.0f, 1.0f);
-            }
-            GetComponent<Renderer>().material.SetColor("_Colors" + i.ToString(), colors[i]);
-        }
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -122,69 +123,60 @@ public class Symulation : MonoBehaviour
     {
         for (int i = 0; i < size; i++)
         {
-            if (actual[i] <= quarterTmp)
-            {
-                upG(actual[i], i);
-            }
-            else if (actual[i] > quarterTmp && actual[i] <= quarterTmp * 2)
-            {
-                downB(actual[i], i);
-            }
-            else if (actual[i] > quarterTmp * 2 && actual[i] <= quarterTmp * 3)
-            {
-                upR(actual[i], i);
-            }
-            else if (actual[i] > quarterTmp * 3 && actual[i] <= Tb)
-            {
-                downG(actual[i], i);
-            }
-
-            GetComponent<Renderer>().material.SetColor("_Colors" + i.ToString(), colors[i]);
+            GetComponent<Renderer>().material.SetColor("_Colors" + i.ToString(), colorsOfTheRainbow[(int)(actual[i]+Math.Abs(mintemp))]);
         }
     }
 
-    private void upG(float currentHeat, int index)
+    public static List<Color> GetRainbowColors(int colorCount)
     {
-        float step = (currentHeat * 0.01f) / (this.quarterTmp / 100);
-        step = Mathf.Round(step * 100f) / 100f;
-        float G = step;
-        G = Mathf.Round(G * 100f) / 100f;
-        float B = colors[index].b;
-        float R = colors[index].r;
-        colors[index] = new Color(R, G, B, 1.0f);
-        //Debug.Log(colors[index]);
-    }
+        List<Color> ret = new List<Color>(colorCount);
 
-    private void downB(float currentHeat, int index)
-    {
-        float step = ((currentHeat * 0.01f) / (this.quarterTmp / 100)) - 1;
-        step = Mathf.Round(step * 100f) / 100f;
-        float B = 1 - step;
-        B = Mathf.Round(B * 100f) / 100f;
-        float G = colors[index].g;
-        float R = colors[index].r;
-        colors[index] = new Color(R, G, B, 1.0f);
-    }
+        float p = 270.0f / (float)colorCount;
 
-    private void upR(float currentHeat, int index)
-    {
-        float step = (currentHeat * 0.01f) / (this.quarterTmp / 100);
-        step = Mathf.Round(step * 100f) / 100f;
-        float R = step - 2;
-        R = Mathf.Round(R * 100f) / 100f;
-        float G = colors[index].g;
-        float B = colors[index].b;
-        colors[index] = new Color(R, G, B, 1.0f);
-    }
+        for (int n = 0; n < colorCount; n++)
+        {
+            ret.Add(HsvToRgb(n * p, 1.0f, 1.0f));
+        }
 
-    private void downG(float currentHeat, int index)
+        ret.Reverse();
+        return ret;
+    }
+    public static Color HsvToRgb(float h, float s, float v)
     {
-        float step = ((currentHeat * 0.01f) / (this.quarterTmp / 100));
-        step = Mathf.Round(step * 100f) / 100f;
-        float G = 1 - (step - 3);
-        G = Mathf.Round(G * 100f) / 100f;
-        float B = colors[index].b;
-        float R = colors[index].r;
-        colors[index] = new Color(R, G, B, 1.0f);
+        int hi = (int)Math.Floor(h / 60.0f) % 6;
+        float f = (h / 60.0f) - (float)Math.Floor(h / 60.0f);
+
+        float p = v * (1.0f - s);
+        float q = v * (1.0f - (f * s));
+        float t = v * (1.0f - ((1.0f - f) * s));
+
+        Color ret = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+
+        switch (hi)
+        {
+            case 0:
+                ret = GetRgb(v, t, p);
+                break;
+            case 1:
+                ret = GetRgb(q, v, p);
+                break;
+            case 2:
+                ret = GetRgb(p, v, t);
+                break;
+            case 3:
+                ret = GetRgb(p, q, v);
+                break;
+            case 4:
+                ret = GetRgb(t, p, v);
+                break;
+            case 5:
+                ret = GetRgb(v, p, q);
+                break;
+        }
+        return ret;
+    }
+    public static Color GetRgb(float r, float g, float b)
+    {
+        return new Color(r, g, b, 1.0f);
     }
 }
