@@ -12,10 +12,10 @@ public class Symulation : MonoBehaviour
     private float[] actual;
     private float[] last;
     private float[,] matrixA;
-    public float Ta = -30;
+    public float Ta = -80;
     public float Tb = 1250;
     public float mainTemp = 20;
-    public int tempRange = 1300;
+    public int tempRange = 1350;
     private static int size = 100;
     float[] positions = new float[size];
     List<Color> colorsOfTheRainbow = new List<Color>();
@@ -116,13 +116,13 @@ public class Symulation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Text text = GameObject.Find("Text").GetComponent<Text>();
+        Text text = GameObject.Find("Fire temp text").GetComponent<Text>();
         text.text = Tb.ToString();
 
-        Text text1 = GameObject.Find("Text (1)").GetComponent<Text>();
+        Text text1 = GameObject.Find("Neutral temp text").GetComponent<Text>();
         text1.text = mainTemp.ToString();
 
-        Text text2 = GameObject.Find("Text (2)").GetComponent<Text>();
+        Text text2 = GameObject.Find("Ice temp text").GetComponent<Text>();
         text2.text = Ta.ToString();
 
         if (start && !started)
