@@ -19,8 +19,8 @@ public class Symulation : MonoBehaviour
     private static int size = 100;
     float[] positions = new float[size];
     List<Color> colorsOfTheRainbow = new List<Color>();
-    float mintemp = 0;
-    public bool start = false;
+    float mintemp;
+    public bool start;
     private bool started;
 
     // Use this for initialization
@@ -39,11 +39,13 @@ public class Symulation : MonoBehaviour
 
         for (int i = 0; i < size; ++i)
         {
-            actual[i] = 0;
-            GetComponent<Renderer>().material.SetColor("_Colors" + i.ToString(), colorsOfTheRainbow[(int)(actual[i] + Math.Abs(mintemp))]);
+            actual[i] = mainTemp;
+            GetComponent<Renderer>().material.SetColor("_Colors" + i.ToString(),
+                colorsOfTheRainbow[(int)(actual[i] + Math.Abs(mintemp))]);
 
             positions[i] = i;
-            GetComponent<Renderer>().material.SetFloat("_PositionsX" + i.ToString(), positions[i]);
+            GetComponent<Renderer>().material.SetFloat("_PositionsX"
+                + i.ToString(), positions[i]);
         }
     }
 
@@ -132,6 +134,12 @@ public class Symulation : MonoBehaviour
         ParticleSystem fire = GameObject.Find("Fire particles").GetComponent<ParticleSystem>();
         fire.maxParticles = (int) (0.017*Tb + 0.6);
 
+        AudioSource coldWindSound = GameObject.Find("Cold wind sound").GetComponent<AudioSource>();
+        coldWindSound.volume = (float)(-0.01*Ta + 0.2);
+
+        AudioSource fireSound = GameObject.Find("Fire sound").GetComponent<AudioSource>();
+        fireSound.volume = (float) (0.0008*Tb);
+
         if (start && !started)
         {
             Start();
@@ -149,7 +157,8 @@ public class Symulation : MonoBehaviour
     {
         for (int i = 0; i < size; i++)
         {
-            GetComponent<Renderer>().material.SetColor("_Colors" + i.ToString(), colorsOfTheRainbow[(int)(actual[i]+Math.Abs(mintemp))]);
+            GetComponent<Renderer>().material.SetColor("_Colors" + i.ToString(),
+                colorsOfTheRainbow[(int)(actual[i]+Math.Abs(mintemp))]);
         }
     }
 
