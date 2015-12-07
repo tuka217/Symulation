@@ -36,14 +36,6 @@ public class Symulation : MonoBehaviour
         initLast();
         initMatrixA();
         colorsOfTheRainbow = GetRainbowColors(tempRange);
-        if (Ta < Tb)
-        {
-            mintemp = Ta;
-        }
-        else
-        {
-            mintemp = Tb;
-        }
 
         for (int i = 0; i < size; ++i)
         {
@@ -116,6 +108,15 @@ public class Symulation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Ta < Tb)
+        {
+            mintemp = Ta;
+        }
+        else
+        {
+            mintemp = Tb;
+        }
+
         Text text = GameObject.Find("Fire temp text").GetComponent<Text>();
         text.text = Tb.ToString();
 
