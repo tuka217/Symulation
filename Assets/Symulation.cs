@@ -125,6 +125,12 @@ public class Symulation : MonoBehaviour
         Text text2 = GameObject.Find("Ice temp text").GetComponent<Text>();
         text2.text = Ta.ToString();
 
+        ParticleSystem ice = GameObject.Find("Ice particles").GetComponent<ParticleSystem>();
+        ice.maxParticles = (int) (-2.35*Ta + 47);
+
+        ParticleSystem fire = GameObject.Find("Fire particles").GetComponent<ParticleSystem>();
+        fire.maxParticles = (int) (0.017*Tb + 0.6);
+
         if (start && !started)
         {
             Start();
